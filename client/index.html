@@ -15,15 +15,6 @@
 	<![endif]-->
 </head>
 <body>
-	<script id="worker1" type="javascript/worker">
-		// This script won't be parsed by JS engines
-		// because its type is javascript/worker.
-		self.onmessage = function(e) {
-		  self.postMessage('msg from worker');
-		};
-		// Rest of your worker code goes here.
-	</script>
-
-	<script src="dependencies/requirejs/require.js" data-main="js/main.js"></script>
+	<script src="dependencies/requirejs/require.js" data-main="main.js"></script>
 </body>
 </html>

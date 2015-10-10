@@ -1,13 +1,14 @@
 ﻿/*globals require*/
 
 require.config({
-	"baseUrl": "../",
+	"baseUrl": "./",
 	"paths": {
 		"text": "dependencies/text/text",
 		"worker1": "js/worker1.js"
 	},
 	"shim": {
-	}
+	},
+	"urlArgs": ("bust=" + new Date()["getTime"]())
 });
 
 require([

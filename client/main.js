@@ -3,8 +3,12 @@
 require.config({
 	"baseUrl": "./",
 	"paths": {
-		"text": "dependencies/text/text",
 		"worker1": "js/worker1.js"
+	},
+	"map": {
+		"*": {
+			"text": "dependencies/text/text"
+		}
 	},
 	"shim": {
 	},

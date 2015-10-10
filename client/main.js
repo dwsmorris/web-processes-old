@@ -3,14 +3,14 @@
 require.config({
 	"baseUrl": "./",
 	"paths": {
-		"worker1": "js/worker1.js"
-	},
-	"map": {
-		"*": {
-			"worker": "dependencies/worker/worker"
-		}
+		"worker": "dependencies/worker/worker",
+		"worker1": "js/worker1.js",
+		"underscore": "dependencies/lodash/lodash"
 	},
 	"shim": {
+		"underscore": {
+			"exports": "_"
+		}
 	}
 });
 
@@ -19,11 +19,9 @@ require([
 ], function (
 	worker
 ) {
-	//var blob = new Blob([worker1Text]);
-
-	//var worker = new Worker(window.URL.createObjectURL(blob));
-	worker.onmessage = function (e) {
+	var worker1 = worker();
+	worker1.onmessage = function (e) {
 		console.log("Received: " + e.data);
 	}
-	worker.postMessage({}); // Start the worker.
+	worker1.postMessage({}); // Start the worker.
 });

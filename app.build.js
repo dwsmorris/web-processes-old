@@ -6,22 +6,22 @@
   // call with `node r.js -o build.js`
   // add `optimize=none` to skip script optimization (useful during debugging).
 
-  mainConfigFile: "./client/main.js",
-
-  map: {
-  	"*": {
-  		"css": "dependencies/require-css/css-builder"
+  "paths": {
+  	"worker": "dependencies/worker/worker-build",
+  	"worker1": "js/worker1.js",
+  	"underscore": "dependencies/lodash/lodash"
+  },
+  "shim": {
+  	"underscore": {
+  		"exports": "_"
+  	},
+  	"worker": {
+  		"deps": ["underscore"]
   	}
   },
-
-  stubModules: ['rvc'],
-
-  skipDirOptimize: true,
-
   modules: [
     {
-      name: "main",
-      exclude: ["text"]
+      name: "main"
     }
   ]
 })

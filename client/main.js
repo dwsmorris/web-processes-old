@@ -7,7 +7,7 @@ require.config({
 	},
 	"map": {
 		"*": {
-			"text": "dependencies/text/text"
+			"worker": "dependencies/worker/worker"
 		}
 	},
 	"shim": {
@@ -16,7 +16,7 @@ require.config({
 });
 
 require([
-	"text!worker1"
+	"worker!worker1"
 ], function (
 	worker1Text
 ) {

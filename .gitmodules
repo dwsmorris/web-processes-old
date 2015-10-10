@@ -4,3 +4,6 @@
 [submodule "client/dependencies/text"]
 	path = client/dependencies/text
 	url = https://github.com/requirejs/text
+[submodule "client/dependencies/worker"]
+	path = client/dependencies/worker
+	url = https://github.com/dwsmorris/worker

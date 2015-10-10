@@ -1,7 +1,7 @@
 ﻿/*globals require*/
 
 require.config({
-	"baseUrl": "./",
+	"baseUrl": "../",
 	"paths": {
 	},
 	"shim": {

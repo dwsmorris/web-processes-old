@@ -1,3 +1,6 @@
 [submodule "client/dependencies/requirejs"]
 	path = client/dependencies/requirejs
 	url = https://github.com/dwsmorris/requirejs
+[submodule "client/dependencies/text"]
+	path = client/dependencies/text
+	url = https://github.com/requirejs/text

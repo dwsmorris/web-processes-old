@@ -3,14 +3,19 @@
 require.config({
 	"baseUrl": "../",
 	"paths": {
+		"text": "dependencies/text/text",
+		"worker1": "js/worker1.js"
 	},
 	"shim": {
 	}
 });
 
 require([
-], function () {
-	var blob = new Blob([document.querySelector('#worker1').textContent]);
+	"text!worker1"
+], function (
+	worker1Text
+) {
+	var blob = new Blob([worker1Text]);
 
 	var worker = new Worker(window.URL.createObjectURL(blob));
 	worker.onmessage = function (e) {

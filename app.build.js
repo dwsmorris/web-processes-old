@@ -8,20 +8,16 @@
 
   "paths": {
   	"worker": "dependencies/worker/worker-build",
-  	"worker1": "js/worker1.js",
-  	"underscore": "dependencies/lodash/lodash"
+  	"worker1": "js/worker1.js"
   },
   "shim": {
   	"underscore": {
   		"exports": "_"
-  	},
-  	"worker": {
-  		"deps": ["underscore"]
   	}
   },
   modules: [
     {
-      name: "main"
+    	name: "main"
     }
   ]
 })

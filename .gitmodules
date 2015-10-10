@@ -7,6 +7,3 @@
 [submodule "client/dependencies/worker"]
 	path = client/dependencies/worker
 	url = https://github.com/dwsmorris/worker
-[submodule "client/dependencies/lodash"]
-	path = client/dependencies/lodash
-	url = https://github.com/lodash/lodash

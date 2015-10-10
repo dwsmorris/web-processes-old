@@ -4,13 +4,9 @@ require.config({
 	"baseUrl": "./",
 	"paths": {
 		"worker": "dependencies/worker/worker",
-		"worker1": "js/worker1.js",
-		"underscore": "dependencies/lodash/lodash"
+		"worker1": "js/worker1.js"
 	},
 	"shim": {
-		"underscore": {
-			"exports": "_"
-		}
 	}
 });
 

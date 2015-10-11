@@ -8,9 +8,7 @@
 
   mainConfigFile: "./client/main.js",
 
-  modules: [
-    {
-    	name: "main"
-    }
-  ]
+  modules: [{
+  	name: "main"
+  }]
 })

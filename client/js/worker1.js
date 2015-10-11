@@ -1,12 +1,8 @@
-﻿importScripts("../dependencies/requirejs/require.js");
+﻿//require(["require"], function (require) {
+	self.onmessage = function (e) {
+		importScripts(e.data.url + "js/hello-world.js");
 
-self.onmessage = function (e) {
-	self.postMessage('msg from worker');
-};
-
-require(["simple", "anon/blue", "func", "anon/green"], function (simple, blue, func, green) {
-	postMessage(simple.color);
-	postMessage(green.name);
-	postMessage(func());
-	postMessage(blue.name);
-});
+		//console.log("hello");
+		self.postMessage('msg from worker: ' + helloWorld());
+	};
+//});

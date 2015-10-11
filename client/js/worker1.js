@@ -1,15 +1,11 @@
-﻿//require(["require"], function (require) {
-	self.onmessage = function (e) {
-		importScripts(e.data.url + "dependencies/requirejs/require.js");
-		importScripts(e.data.url + "js/hello-world.js");
+﻿self.onmessage = function (e) {
+	var worker2 = new Worker("worker2.js");
 
-		//console.log("hello");
-		self.postMessage('msg from worker: ' + helloWorld());
-
-		require({
-			baseUrl: e.data.url
-		}, ["js/anon/blue"], function (blue) {
-			postMessage(blue.name);
+	worker2.addEventListener("message", function (e) {
+		self.postMessage({
+			message: 'msg from worker1 : ' + e.data.message
 		});
-	};
-//});
+	});
+
+	worker2.postMessage({});
+};

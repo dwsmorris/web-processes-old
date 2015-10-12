@@ -6,6 +6,7 @@ require.config({
 		"worker": "dependencies/worker/worker",
 		"text": "dependencies/text/text",
 		"worker1": "js/worker1.js",
+		"worker2": "js/worker2.js",
 		"worker1txt": "txt/worker1txt.txt",
 		"simple": "simple"
 	},
@@ -15,15 +16,17 @@ require.config({
 
 require([
 	"worker!worker1",
+	"worker!worker2",
 	"text!worker1txt"
 ], function (
 	worker1,
+	worker2,
 	worker1txt
 ) {
 	var worker = eval(worker1);
 
 	worker.onmessage = function (e) {
-		console.log("Received: " + e.data + " " + worker1txt);
+		console.log("Received: " + e.data.message + " " + worker1txt);
 	}
 
 	var url = document.location.href;
@@ -33,6 +36,7 @@ require([
 	}
 
 	worker.postMessage({
-		url: url
+		url: url,
+		worker2: worker2
 	}); // Start the worker.
 });

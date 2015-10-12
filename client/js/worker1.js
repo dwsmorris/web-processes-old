@@ -1,11 +1,11 @@
-﻿self.onmessage = function (e) {
-	var worker2 = new Worker("worker2.js");
+﻿self.addEventListener("message", function (e) {
+	var worker2 = eval(e.data.worker2);
 
 	worker2.addEventListener("message", function (e) {
 		self.postMessage({
-			message: 'msg from worker1 : ' + e.data.message
+			message: "msg from worker 1: " + e.data.message
 		});
 	});
 
 	worker2.postMessage({});
-};
+});

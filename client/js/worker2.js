@@ -1,5 +1,5 @@
-﻿self.onmessage = function (e) {
+﻿self.addEventListener("message", function (e) {
 	self.postMessage({
-		message: 'msg from worker 2'
+		message: "msg from worker 2"
 	});
-};
+});

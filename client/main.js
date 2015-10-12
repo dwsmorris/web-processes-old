@@ -17,9 +17,11 @@ require([
 	"worker!worker1",
 	"text!worker1txt"
 ], function (
-	worker,
+	worker1,
 	worker1txt
 ) {
+	var worker = eval(worker1);
+
 	worker.onmessage = function (e) {
 		console.log("Received: " + e.data + " " + worker1txt);
 	}

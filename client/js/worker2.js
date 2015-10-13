@@ -1,5 +1,9 @@
-﻿self.addEventListener("message", function (e) {
-	self.postMessage({
-		message: "msg from worker 2"
+﻿/*globals postMessage*/
+
+addEventListener("message", function (e) {
+	postMessage({
+		to: e.data.from,
+		from: "worker2",
+		contents: "msg from worker 2"
 	});
 });

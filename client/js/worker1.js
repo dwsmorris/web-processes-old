@@ -1,11 +1,16 @@
-﻿self.addEventListener("message", function (e) {
-	var worker2 = eval(e.data.worker2);
+﻿/*globals postMessage*/
 
-	worker2.addEventListener("message", function (e) {
-		self.postMessage({
-			message: "msg from worker 1: " + e.data.message
+addEventListener("message", function (e) {
+	if (e.data.contents) {
+		postMessage({
+			to: "output",
+			from: "worker1",
+			contents: "relayed from worker1: " + e.data.contents
 		});
-	});
+	}
+});
 
-	worker2.postMessage({});
+postMessage({
+	to: "worker2",
+	from: "worker1"
 });

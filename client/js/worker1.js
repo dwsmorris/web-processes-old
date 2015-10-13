@@ -1,7 +1,7 @@
 ﻿/*globals postMessage*/
 
 addEventListener("message", function (e) {
-	if (e.data.contents) {
+	if (e.data.from === "worker2") {
 		postMessage({
 			to: "output",
 			from: "worker1",

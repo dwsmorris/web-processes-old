@@ -8,7 +8,9 @@ require({
 		"worker1": "js/worker1.js",
 		"worker2": "js/worker2.js",
 		"worker1txt": "txt/worker1txt.txt",
-		"mediator": "js/mediator"
+		"mediator": "js/mediator",
+		"underscore": "dependencies/lodash/lodash",
+		"underscoreText": "dependencies/lodash/lodash.js"
 	},
 	"shim": {
 	}
@@ -16,16 +18,25 @@ require({
 	"worker!worker1",
 	"worker!worker2",
 	"text!worker1txt",
-	"mediator"
+	"mediator",
+	"underscore",
+	"text!underscoreText"
 ], function (
 	worker1,
 	worker2,
 	worker1txt,
-	mediator
+	mediator,
+	underscore,
+	underscoreText
 ) {
 	mediator({
-		worker1: worker1,
-		worker2: worker2
+		worker1: {
+			code: worker1
+		},
+		worker2: {
+			code: worker2,
+			dependencies: [underscoreText]
+		}
 	}, {
 		data: {
 			to: "worker1",

@@ -52,9 +52,11 @@ require({
 	var twoAs = matches.pattern({
 		"[a, a]": function (a) {
 			return a;
+		},
+		"...": function () {
+			return 42;
 		}
 	});
 
-	console.log(twoAs([1, 1]));
 	console.log(twoAs([1, 2])); // TODO: returns 1. should fail match!
 });

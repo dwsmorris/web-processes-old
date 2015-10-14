@@ -13,3 +13,6 @@
 [submodule "client/dependencies/matchesjs"]
 	path = client/dependencies/matchesjs
 	url = https://github.com/dwsmorris/matches.js
+[submodule "client/dependencies/jasmine"]
+	path = client/dependencies/jasmine
+	url = https://github.com/jasmine/jasmine

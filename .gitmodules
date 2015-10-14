@@ -10,3 +10,6 @@
 [submodule "client/dependencies/lodash"]
 	path = client/dependencies/lodash
 	url = https://github.com/lodash/lodash
+[submodule "client/dependencies/matchesjs"]
+	path = client/dependencies/matchesjs
+	url = https://github.com/dwsmorris/matches.js

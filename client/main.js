@@ -1,4 +1,4 @@
-﻿/*globals require*/
+﻿/*globals require, matches, console*/
 
 require({
 	"baseUrl": "./",
@@ -10,7 +10,9 @@ require({
 		"worker1txt": "txt/worker1txt.txt",
 		"mediator": "js/mediator",
 		"underscore": "dependencies/lodash/lodash",
-		"underscoreText": "dependencies/lodash/lodash.js"
+		"underscoreText": "dependencies/lodash/lodash.js",
+		"matches": "dependencies/matchesjs/matches",
+		"matchesText": "dependencies/matchesjs/matches.js"
 	},
 	"shim": {
 	}
@@ -20,14 +22,17 @@ require({
 	"text!worker1txt",
 	"mediator",
 	"underscore",
-	"text!underscoreText"
+	"text!underscoreText",
+	"text!matchesText",
+	"matches"
 ], function (
 	worker1,
 	worker2,
 	worker1txt,
 	mediator,
 	underscore,
-	underscoreText
+	underscoreText,
+	matchesText
 ) {
 	mediator({
 		worker1: {
@@ -35,7 +40,7 @@ require({
 		},
 		worker2: {
 			code: worker2,
-			dependencies: [underscoreText]
+			dependencies: [underscoreText, matchesText]
 		}
 	}, {
 		data: {
@@ -43,4 +48,13 @@ require({
 			from: "main"
 		}
 	});
+
+	var twoAs = matches.pattern({
+		"[a, a]": function (a) {
+			return a;
+		}
+	});
+
+	console.log(twoAs([1, 1]));
+	console.log(twoAs([1, 2])); // TODO: returns 1. should fail match!
 });

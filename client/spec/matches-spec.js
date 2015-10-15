@@ -79,6 +79,29 @@ define([
 
 			jasmine.expect(fn([[1, 2, 3]])).toBe(0);
 		});
+
+		jasmine.it("ignores _'s as any wildcard", function () {
+			var fn = matches.pattern({
+				"[1, _, _]": function () { return 12; },
+				"...": function () { return 0; }
+			});
+
+			jasmine.expect(fn([1, "cat", "dog"])).toBe(12);
+		});
+
+		// #1
+		jasmine.xit("pattern enforces matching identical symbols", function () {
+			var fn = matches.pattern({
+				"[a, a]": function (a) {
+					return a;
+				},
+				"...": function () {
+					return 42;
+				}
+			});
+
+			jasmine.expect(fn([1, 2])).toBe(42);
+		});
 	});
 });
 

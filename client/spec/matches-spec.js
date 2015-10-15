@@ -102,6 +102,20 @@ define([
 
 			jasmine.expect(fn([1, 2])).toBe(42);
 		});
+
+		jasmine.it("does not capture variables", function () {
+			var a = 1;
+			var fn = matches.pattern({
+				"[1, a, 3]": function (a) { return a; },
+				"...": function () { return 42; }
+			});
+
+			fn([1, 2, 3]);
+
+			jasmine.expect(a).toBe(1);
+		});
+
+		// maps
 	});
 });
 

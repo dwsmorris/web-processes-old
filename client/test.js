@@ -3,7 +3,7 @@
 require.config({
 	baseUrl: "./",
 	paths: {
-		"underscore": "dependencies/lodash/main",
+		"underscore": "dependencies/lodash/lodash",
 		"jasmine": "dependencies/jasmine/lib/jasmine-core/jasmine",
 		"jasmine-html": "dependencies/jasmine/lib/jasmine-core/jasmine-html",
 		"boot": "dependencies/jasmine/lib/jasmine-core/boot",

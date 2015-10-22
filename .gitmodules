@@ -16,3 +16,6 @@
 [submodule "client/dependencies/jasmine"]
 	path = client/dependencies/jasmine
 	url = https://github.com/jasmine/jasmine
+[submodule "client/dependencies/underscore-contrib"]
+	path = client/dependencies/underscore-contrib
+	url = https://github.com/documentcloud/underscore-contrib

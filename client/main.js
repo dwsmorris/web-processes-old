@@ -11,10 +11,16 @@ require({
 		"mediator": "js/mediator",
 		"underscore": "dependencies/lodash/lodash",
 		"underscoreText": "dependencies/lodash/lodash.js",
+		"underscore-contrib": "dependencies/underscore-contrib/dist/underscore-contrib",
+		"underscore-contribText": "dependencies/underscore-contrib/dist/underscore-contrib.js",
 		"matches": "dependencies/matchesjs/matches",
 		"matchesText": "dependencies/matchesjs/matches.js"
 	},
 	"shim": {
+		"underscore-contrib": {
+			"deps": ["underscore"],
+			"exports": "_"
+		}
 	}
 }, [
 	"worker!worker1",
@@ -23,6 +29,7 @@ require({
 	"mediator",
 	"underscore",
 	"text!underscoreText",
+	"text!underscore-contribText",
 	"text!matchesText",
 	"matches"
 ], function (
@@ -32,6 +39,7 @@ require({
 	mediator,
 	underscore,
 	underscoreText,
+	underscoreContribText,
 	matchesText
 ) {
 	mediator({
@@ -40,7 +48,7 @@ require({
 		},
 		worker2: {
 			code: worker2,
-			dependencies: [underscoreText, matchesText]
+			dependencies: [underscoreText, underscoreContribText, matchesText]
 		}
 	}, {
 		data: {

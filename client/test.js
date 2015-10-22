@@ -4,6 +4,7 @@ require.config({
 	baseUrl: "./",
 	paths: {
 		"underscore": "dependencies/lodash/lodash",
+		"underscore-contrib": "dependencies/underscore-contrib/dist/underscore-contrib",
 		"jasmine": "dependencies/jasmine/lib/jasmine-core/jasmine",
 		"jasmine-html": "dependencies/jasmine/lib/jasmine-core/jasmine-html",
 		"boot": "dependencies/jasmine/lib/jasmine-core/boot",
@@ -11,8 +12,9 @@ require.config({
 		"text": "dependencies/text/text"
 	},
 	shim: {
-		"underscore": {
-			exports: "_"
+		"underscore-contrib": {
+			"deps": ["underscore"],
+			"exports": "_"
 		},
 		"text": {
 			exports: "text"

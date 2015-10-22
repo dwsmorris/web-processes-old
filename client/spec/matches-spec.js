@@ -3,7 +3,7 @@
 define([
 	"jasmine",
 	"matches",
-	"underscore"
+	"underscore-contrib"
 ], function (
 	jasmine,
 	matches,
@@ -146,14 +146,66 @@ define([
 		});
 
 		jasmine.it("implements factorial with negative range guard", function () {
-			var factorial = matches.pattern({
-				"0": function () { return 1; }
-			}).alt(matches.pattern(function(args) {
-				if ()
-				"n": function (n) { return n * factorial(n - 1); }
-			});
+			var factorial = matches.pattern("0", function () { return 1; }).alt(matches.pattern(function(args) {
+				var matchedParameters = matches.extract("n", args);
+				return matchedParameters && matchedParameters[0] > 0 ? matchedParameters : false;
+			}, function (n) { return n * factorial(n - 1); })).alt("...", function () { return "no matches"; });
 
 			jasmine.expect(factorial(3)).toBe(6);
+			jasmine.expect(factorial(-1)).toBe("no matches");
+		});
+
+		jasmine.it("splits an array to head and tail", function () {
+			var fn = matches.pattern("[head, ...tail]", function () { return _.toArray(arguments); });
+
+			jasmine.expect(fn([1, 2, 3])).toEqual([1, [2, 3]]);
+		});
+
+		jasmine.it("calculates the length of a list", function () {
+			var fn = matches.pattern({
+				"[]": function () { return 0; },
+				"[_, ...tail]": function (tail) { return 1 + fn(tail); }
+			});
+
+			jasmine.expect(fn([11, 12, 13, 14, 15])).toBe(5);
+		});
+
+		jasmine.it("maps a list to its squares", function () {
+			var fn = matches.pattern({
+				"[]": function () { return []; },
+				"[head, ...tail]": function (head, tail) { return _.cons(head * head, fn(tail)); }
+			});
+
+			jasmine.expect(fn([4, 5, 6])).toEqual([16, 25, 36]);
+		});
+
+		jasmine.it("can define a map function", function () {
+			var fn = matches.pattern({
+				"[], _": function () { return []; },
+				"[head, ...tail], f": function (head, tail, f) { return _.cons(f(head), fn(tail, f)); }
+			});
+
+			jasmine.expect(fn([1, 2, 3, 4], function (x) { return x * x; })).toEqual([1, 4, 9, 16]);
+		});
+
+		jasmine.it("supports accumulator", function () {
+			var sum = matches.pattern({
+				"array": function (array) { return sum(array, 0); },
+				"[], acc": function (acc) { return acc; },
+				"[head, ...tail], acc": function (head, tail, acc) { return acc + head + sum(tail, acc); }
+			});
+
+			jasmine.expect(sum([1, 2, 3, 4, 5])).toBe(15);
+		});
+
+		jasmine.it("can define a reduce function", function () {
+			var reduce = matches.pattern({
+				"[], _, acc": function (acc) { return acc; },
+				"[head, ...tail], f, acc": function (head, tail, f, acc) { return reduce(tail, f, f(acc, head)); }
+			});
+
+			jasmine.expect(reduce([1, 2, 3, 4, 5], function (acc, x) { return acc + x; }, 0)).toBe(15);
+			jasmine.expect(reduce([1, 2, 3, 4, 5], function (acc, x) { return acc + x; }, "")).toBe("12345");
 		});
 	});
 });

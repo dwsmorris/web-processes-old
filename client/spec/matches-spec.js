@@ -207,6 +207,88 @@ define([
 			jasmine.expect(reduce([1, 2, 3, 4, 5], function (acc, x) { return acc + x; }, 0)).toBe(15);
 			jasmine.expect(reduce([1, 2, 3, 4, 5], function (acc, x) { return acc + x; }, "")).toBe("12345");
 		});
+
+		jasmine.it("can swap pairs of numbers in a list", function () {
+			var swapper = matches.pattern({
+				"[]": function () { return []; },
+				"[a, b, ...tail]": function (a, b, tail) { return [b, a].concat(swapper(tail)); },
+				"[single]": function (single) { return [single]; }
+			});
+
+			jasmine.expect(swapper([1, 2, 3, 4, 5, 6, 7])).toEqual([2, 1, 4, 3, 6, 5, 7]);
+		});
+
+		jasmine.it("can match literals in a list", function () {
+			var forLocation27 = matches.pattern({
+				"[]": function () { return []; },
+				"[[time, 27, temp, rain], ...tail]": function (time, temp, rain, tail) { return _.cons([time, 27, temp, rain], forLocation27(tail)); },
+				"[_, ...tail]": function (tail) { return forLocation27(tail); }
+			});
+
+			var inputData = [[
+				1366225622, 26, 15, 0.125
+			], [
+				1366225622, 27, 15, 0.45
+			], [
+				1366225622, 28, 21, 0.25
+			], [
+				1366229222, 26, 19, 0.081
+			], [
+				1366229222, 27, 17, 0.468
+			]];
+
+			var expectedOutput = [[
+				1366225622, 27, 15, 0.45
+			], [
+				1366229222, 27, 17, 0.468
+			]];
+
+			jasmine.expect(forLocation27(inputData)).toEqual(expectedOutput);
+		});
+
+		jasmine.xit("can match components of a list that equate to literals", function () {
+			var forLocation = matches.pattern({
+				"[], _": function () { return []; },
+				"[[time, location, temp, rain], ...tail], location": function (time, location, temp, rain, tail) { return _.cons([time, location, temp, rain], forLocation(tail, location)); },
+				"[_, ...tail], location": function (tail, location) { return forLocation(tail, location); }
+			});
+
+			var inputData = [[
+				1366225622, 26, 15, 0.125
+			], [
+				1366225622, 27, 15, 0.45
+			], [
+				1366225622, 28, 21, 0.25
+			], [
+				1366229222, 26, 19, 0.081
+			], [
+				1366229222, 27, 17, 0.468
+			]];
+
+			var expectedOutput = [[
+				1366225622, 27, 15, 0.45
+			], [
+				1366229222, 27, 17, 0.468
+			]];
+
+			jasmine.expect(forLocation(inputData, 27)).toEqual(expectedOutput);
+		});
+
+		jasmine.it("matches a field from an object", function () {
+			var name = matches.pattern({
+				"{name: value}": function (value) { return value; }
+			});
+
+			jasmine.expect(name({ name: "Dave", height: 1.88 })).toBe("Dave");
+		});
+
+		jasmine.it("fails to match when object pattern has extra key", function () {
+			var fn = matches.pattern({
+				"{name: _, weight: _}": function () { }
+			});
+
+			jasmine.expect(_.partial(fn, { name: "Dave" })).toThrowError(TypeError, "All patterns exhausted");
+		});
 	});
 });
 

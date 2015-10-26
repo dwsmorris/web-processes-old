@@ -9,7 +9,9 @@ require.config({
 		"jasmine-html": "dependencies/jasmine/lib/jasmine-core/jasmine-html",
 		"boot": "dependencies/jasmine/lib/jasmine-core/boot",
 		"matches": "dependencies/matchesjs/matches",
-		"text": "dependencies/text/text"
+		"text": "dependencies/text/text",
+		"kefir": "dependencies/kefir",
+		"lazy": "dependencies/lazy/lazy"
 	},
 	shim: {
 		"underscore-contrib": {
@@ -43,7 +45,10 @@ require.config({
 require(['boot'], function () {
 	// Load the specs
     require([
-		"spec/matches-spec"
+		"spec/matches-spec",
+		"spec/kefir-spec",
+		"spec/underscore-spec",
+		"spec/lazy-spec"
     ], function (
     ) {
 	    // Initialize the HTML Reporter and execute the environment (setup by `boot.js`)

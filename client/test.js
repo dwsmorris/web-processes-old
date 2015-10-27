@@ -11,7 +11,9 @@ require.config({
 		"matches": "dependencies/matchesjs/matches",
 		"text": "dependencies/text/text",
 		"kefir": "dependencies/kefir",
-		"lazy": "dependencies/lazy/lazy"
+		"lazy": "dependencies/lazy/lazy",
+		"lazyArray": "dependencies/lazy-array/lazy-array",
+		"immutable": "dependencies/immutable-js/dist/immutable"
 	},
 	shim: {
 		"underscore-contrib": {
@@ -48,7 +50,9 @@ require(['boot'], function () {
 		"spec/matches-spec",
 		"spec/kefir-spec",
 		"spec/underscore-spec",
-		"spec/lazy-spec"
+		"spec/lazy-spec",
+		"spec/lazy-array-spec",
+		"spec/immutable-spec"
     ], function (
     ) {
 	    // Initialize the HTML Reporter and execute the environment (setup by `boot.js`)

@@ -22,3 +22,9 @@
 [submodule "client/dependencies/lazy"]
 	path = client/dependencies/lazy
 	url = https://github.com/dtao/lazy.js
+[submodule "client/dependencies/lazy-array"]
+	path = client/dependencies/lazy-array
+	url = https://github.com/dwsmorris/lazy-array
+[submodule "client/dependencies/immutable-js"]
+	path = client/dependencies/immutable-js
+	url = https://github.com/facebook/immutable-js/

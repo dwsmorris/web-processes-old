@@ -28,3 +28,12 @@
 [submodule "client/dependencies/immutable-js"]
 	path = client/dependencies/immutable-js
 	url = https://github.com/facebook/immutable-js/
+[submodule "client/dependencies/highland"]
+	path = client/dependencies/highland
+	url = https://github.com/caolan/highland
+[submodule "client/dependencies/ramda"]
+	path = client/dependencies/ramda
+	url = https://github.com/ramda/ramda
+[submodule "client/dependencies/lodash-fp"]
+	path = client/dependencies/lodash-fp
+	url = https://github.com/lodash/lodash-fp

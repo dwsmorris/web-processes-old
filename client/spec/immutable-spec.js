@@ -26,19 +26,19 @@ define([
 		});
 
 		jasmine.it("supports cycling and zipping streams", function () {
-			var greenWhiteGenerator = _.Seq((function () {
-				var green = true;
+			var greenWhiteGenerator = _.Range().map(function (n) { return n % 2 === 0 ? "green" : "white"; });
 
-				return {
-					next: function () {
-						return green ? "green" : "white";
-						green = !green;
-					}
-				};
-			});
-
-			jasmine.expect(greenWhiteGenerator.take(2).toJS()).toEqual(["green", "white"]);
 			jasmine.expect(greenWhiteGenerator.zip(_.Range(1)).take(3).toJS()).toEqual([["green", 1], ["white", 2], ["green", 3]]);
+		});
+
+		jasmine.it("supports iterating generator", function () {
+			var squareResult = _.Range().map(function () {
+				var value = 1;
+				return function () {
+					value = value * value;
+					return 
+				};
+			}())
 		});
 	});
 });

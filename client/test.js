@@ -13,7 +13,10 @@ require.config({
 		"kefir": "dependencies/kefir",
 		"lazy": "dependencies/lazy/lazy",
 		"lazyArray": "dependencies/lazy-array/lazy-array",
-		"immutable": "dependencies/immutable-js/dist/immutable"
+		"immutable": "dependencies/immutable-js/dist/immutable",
+		"highland": "dependencies/highland/dist/highland",
+		"ramda": "dependencies/ramda/dist/ramda",
+		"lodashFp": "dependencies/lodash-fp/dist/lodash-fp"
 	},
 	shim: {
 		"underscore-contrib": {
@@ -52,7 +55,11 @@ require(['boot'], function () {
 		"spec/underscore-spec",
 		"spec/lazy-spec",
 		"spec/lazy-array-spec",
-		"spec/immutable-spec"
+		"spec/immutable-spec",
+		"spec/highland-spec",
+		"spec/transducer-spec",
+		"spec/ramda-spec",
+		"spec/lodash-fp-spec"
     ], function (
     ) {
 	    // Initialize the HTML Reporter and execute the environment (setup by `boot.js`)

@@ -10,17 +10,49 @@ define([
 	R
 ) {
 	jasmine.describe("ramda", function () {
-		jasmine.it("supports infinite lists", function () {
-			var numbers = [1, 2, 3, 4];
-			var prepend = function () {
-
+		jasmine.it("supports mult4 transducer", function () {
+			var listxf = {
+				'@@transducer/step': function (acc, x) { return acc.concat([x]); },
+				'@@transducer/init': function () { return []; },
+				'@@transducer/result': function (x) { return x; }
 			};
-			prepend.step = _.bind(R.prepend(1), R);
-			var transducer = R.compose(R.map(R.add(1)), prepend, R.take(2));
+			var addxf = {
+				'@@transducer/step': function (acc, x) { return acc + x; },
+				'@@transducer/init': function () { return 0; },
+				'@@transducer/result': function (x) { return x; }
+			};
 
-			var result = R.transduce(transducer, R.flip(R.append), [], numbers);
+			var toxf = function (fn) {
+				return function (xf) {
+					return {
+						'@@transducer/step': function (acc, x) { return xf['@@transducer/step'](acc, fn(x)); },
+						'@@transducer/result': xf['@@transducer/result']
+					};
+				};
+			};
 
-			jasmine.expect(result).toEqual([2, 3]);
+			jasmine.expect(R.transduce(R.compose(R.take(2), toxf(R.add(1))), listxf, [], function () {
+				var value = 0;
+
+				var result = {
+					value: value,
+					next: function () {
+						value += 1;
+						return _.merge({}, result, {
+							value: value
+						});
+					},
+					done: false
+				};
+
+				return result;
+			}())).toEqual([2, 3]);
+
+			jasmine.expect(R.transduce(R.compose(R.take(2), toxf(R.add(1))), listxf, [], [1, 2, 3, 4, 5, 6, 7])).toEqual([2, 3]);
+			jasmine.expect(R.transduce(R.compose(R.filter(function (x) { return x % 2 === 0; }), toxf(R.add(1))), listxf, [], [1, 2, 3, 4, 5, 6, 7])).toEqual([3, 5, 7]);
+			jasmine.expect(R.transduce(R.filter(function (x) { return x % 2 === 0; }), listxf, [], [1, 2, 3, 4, 5, 6, 7])).toEqual([2, 4, 6]);
+			jasmine.expect(R.transduce(toxf(R.add(1)), listxf, [], [1, 2, 3, 4])).toEqual([2, 3, 4, 5]);
+			jasmine.expect(R.transduce(toxf(R.multiply(4)), listxf, [], [1, 2, 3, 4])).toEqual([4, 8, 12, 16]);
 		});
 		/*
 		var integers = function (n) {
